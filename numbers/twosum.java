@@ -1,9 +1,10 @@
 import java.util.HashMap;
 public class twosum
 {
-	public static int[] twoSum(int[] nums, int target)
+	import java.util.HashMap;
+    public static int[] twoSum(int[] nums, int target)
 	{
-    	int [] indices = new int[2];
+        int [] indices = new int[2];
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i=0; i<nums.length; i++)
         {
@@ -20,13 +21,10 @@ public class twosum
                     return indices;
                 }
             }
-        }
-        for (int j=0; j<nums.length; j++)
-        {
-            if (map.containsKey(target-nums[j]) && map.get(target-nums[j])!=j)
+            if (map.containsKey(target-nums[i]) && map.get(target-nums[i])!=i)
             {
-                indices[0] = j;
-                indices[1] = map.get(target-nums[j]);
+                indices[0] = i;
+                indices[1] = map.get(target-nums[i]);
                 return indices;
             }
         }
