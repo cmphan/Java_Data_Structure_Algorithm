@@ -7,53 +7,104 @@ Output: 1->1->2->3->4->4 */
 
 /* ===================
 Cuong Phan
-This solution take O(max(length_of_l1, length_of_l2)) time 
-and O(length_of_l1 + length_of_l2) space 
+This solution take O(length_of_l1 + length_of_l2) time 
+and don't take any extra space
 ======================*/
 public class MergeTwoSortedLists {
-	static class LinkedList {
-		ListNode head;
-		static class ListNode {
-		int val;
+	//Definition of singly linked list node
+	static class ListNode {
+		int data;
 		ListNode next;
-		ListNode(int x) {this.val = x; next = null;}
+		ListNode(int data)
+		{
+			this.data = data;
+			this.next = null;
 		}
 	}
-// 	public static int ListNode mergeTwoLists(ListNode l1, ListNode l2)
-// 	{
-// 		
-// 	}
-	public static LinkedList append(LinkedList list, int x)
+	//Traversing through node from head node to print all elements
+	public static void Print(ListNode head)
 	{
-		ListNode new_node = new ListNode(x);
-		if(list.head==null)
+		if(head==null)
+			return;
+		while(head!=null)
 		{
-			list.head = new_node;
+			System.out.print(head.data + " ");
+			head = head.next;
+		}
+		System.out.println();
+	}
+	//create a linked list from an input array
+	public static ListNode createList(int[] array)
+	{
+		//Create a headnode
+		ListNode l = new ListNode(array[0]);
+		ListNode head = l;
+		for (int i=1; i<array.length; i++)
+		{
+			l.next = new ListNode(array[i]);
+			l = l.next;
+		}
+		return head;
+	}
+	//Merge two sorted list into a sorted list
+	public static ListNode mergeList(ListNode l1, ListNode l2)
+	{
+		ListNode head = null;
+		ListNode tail = null;
+		if (l1.data<=l2.data)
+		{
+			head = l1;
+			tail = l1;
+			l1 = l1.next;		
 		}
 		else 
 		{
-			ListNode last = list.head;
-			while (last.next!=null)
-			{
-				last = last.next;
-			}
-			last.next = new_node;
+			head = l2;
+			tail = l2;
+			l2 = l2.next;
 		}
-		return list;
-	}
-	public static void print(LinkedList list)
-	{
-		ListNode last = list.head;
-		while(last!=null)
+		//Traversing compare and append node to the new merged list
+		while(l1!=null && l2!=null)
 		{
-			System.out.println(last.val);
-			last = last.next;
+			if(l1.data<=l2.data)
+			{
+				tail.next = l1;
+				tail = l1;
+				l1 = l1.next; 
+			}
+			else 
+			{
+				tail.next = l2;
+				tail =l2;
+				l2 = l2.next;
+			}
 		}
+		//Append any remaining nodes to the list
+		while(l1!=null || l2!=null)
+		{
+			if(l1!=null)
+			{
+				tail.next = l1;
+				tail = l1;
+				l1 = l1.next;
+			}
+			else if (l2!=null)
+			{
+				tail.next = l2;
+				tail = l2;
+				l2 = l2.next;
+			}
+		}
+		return head;
 	}
 	public static void main(String[] args)
 	{
-		LinkedList list = new LinkedList();
-		list = list.append(list,1);
-		list.print(list);
+		int[] array1 = new int[]{1,2,4,7,10};
+		int[] array2 = new int[]{1,3,4,8,9};
+		ListNode l1 = createList(array1);
+		ListNode l2 = createList(array2);
+		Print(l1);
+		Print(l2);
+		Print(mergeList(l1,l2));
 	}
 }
