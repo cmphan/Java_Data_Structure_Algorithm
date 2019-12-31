@@ -21,6 +21,11 @@ Note that the order of those five elements can be arbitrary.
 
 It doesn't matter what values are set beyond the returned length.
 
+===========
+Space O(1)
+Time: O(n)
+Solution 
+==========
 */
 public class RemoveElement{
 	public static int remove(int[] nums, int val)
