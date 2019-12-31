@@ -11,6 +11,9 @@ Example 2:
 
 Input: haystack = "aaaaa", needle = "bba"
 Output: -1
+Time Complexity O(m.n) 
+m = length of needle 
+n = length of haystack
 */
 public class strStr{
 	public static int subString(String haystack, String needle)
